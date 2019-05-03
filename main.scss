@@ -4,26 +4,40 @@
     padding: 0;
 }
 
+body {
+    display: flex;
+    justify-content: center;
+}
+
 
 #board {
-height: 100vh;
-width: 100%;
+height: calc(100vh - 40px);
+width: 90%;
 display: grid;
-grid-template: repeat(3, 1fr) / repeat(4, 1fr);
+grid-template: repeat(4, 1fr) / repeat(4, 1fr);
 grid-gap: 3px;
 background: transparent;
 perspective: 1000px;
 position: relative;
 z-index: 1;
+margin: 10px;
+
+    div{
+        display: flex;
+    }
 }
 
 .tile {
 width: 100%;
 height: 100%;
 transform-style: preserve-3d;
-transition: all 1.0s linear;
+transition: transform 0.6s ease-in;
 position: relative;
 cursor: pointer;
+}
+
+.tile:hover {
+border: 3px solid black;
 }
 
 .tile::before{
@@ -52,9 +66,28 @@ transform: rotateX(180deg);
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    background: lightcyan;
+    background: lavender;
 }
 
+.check {
+    background: crimson;
+    border: 1px black solid;
+    font-size: 5rem;
+    display: flex;
+    justify-self: center;
+    width: 100%;
+    height: 100%;
+    transition: all 0.8s ease-in;
+
+}
+
+i {
+    margin: auto;
+}
+
+.fa-check:before {
+transform: rotateX(180deg);
+}
 
 .nr1{
     grid-area: 1 / 1 / 2 / 2;
@@ -103,5 +136,23 @@ transform: rotateX(180deg);
 .nr12{
     grid-area: 3 / 4 / 4 / 5;
 }
+
+.nr13{
+    grid-area: 4 / 1 / 5 / 2;
+}
+
+.nr14{
+    grid-area: 4 / 2 / 5 / 3;
+}
+
+.nr15{
+    grid-area: 4 / 3 / 5 / 4;
+}
+
+.nr16{
+    grid-area: 4 / 4 / 5 / 5;
+}
+
+
 
 
