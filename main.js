@@ -37,15 +37,20 @@ for (var i = 0; i < randomColors.length; i++) {
         counter++;
     }
 }
+//variables
 var tiles = document.querySelectorAll('.tile');
 var flipCounter = 0;
+var moves = 0;
 var colorsFlipped = '';
+var elemMoves = document.getElementById('moves');
 tiles.forEach(function (tile) {
     tile.addEventListener('click', function () {
         tile.classList.add('flip');
-        // add to flipcounter when user clicks tile
+        // add to flipcounter when user clicks tile and add score
         if (tile.classList.contains('flip')) {
             flipCounter++;
+            moves++;
+            elemMoves.innerHTML = "Moves: " + moves;
         }
         //check if there's a match
         if (tile.classList.contains('flip')) {
@@ -55,7 +60,7 @@ tiles.forEach(function (tile) {
                 setTimeout(function () {
                     gotPair();
                     allchecked();
-                }, 1000);
+                }, 100);
             }
         }
         // Clear tiles when there's not a pair
@@ -63,7 +68,7 @@ tiles.forEach(function (tile) {
             setTimeout(function () {
                 clearFlippedTiles();
                 flipCounter = 0;
-            }, 1000);
+            }, 500);
         }
     });
 });
@@ -77,8 +82,8 @@ var clearFlippedTiles = function () {
 var gotPair = function () {
     var flipped = document.querySelectorAll('.flip');
     flipped.forEach(function (tile) {
-        tile.removeAttribute("style");
         tile.classList.remove('flip');
+        tile.removeAttribute("style");
         tile.innerHTML = '<i class="fas fa-check"></i>';
         tile.classList.add('check');
         tile.classList.remove('tile');
@@ -86,8 +91,26 @@ var gotPair = function () {
 };
 var allchecked = function () {
     var checked = document.querySelectorAll('.check');
+    var score = document.getElementById('score');
+    var scoreTotal = document.getElementById('scoreTotal');
     if (checked.length >= doubleColors.length) {
-        console.log('congrats!');
+        scoreTotal.innerHTML = moves;
+        setTimeout(function () {
+            score.style.display = 'flex';
+        }, 1000);
     }
 };
+// Restart the game
+var btn = document.getElementById('btn');
+btn.addEventListener('click', playAgain);
+function playAgain() {
+    location.reload();
+}
+// start the game
+var btn2 = document.getElementById('btn2');
+btn2.addEventListener('click', startGame);
+function startGame() {
+    var startGame = document.getElementById('startGame');
+    startGame.style.display = 'none';
+}
 //# sourceMappingURL=main.js.map

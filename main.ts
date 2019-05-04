@@ -1,3 +1,5 @@
+
+
 let colors: string[] = [
     'red',
     'green',
@@ -49,42 +51,46 @@ for (let i = 0; i < randomColors.length; i++) {
     }
 }
 
+//variables
 let tiles = document.querySelectorAll < HTMLElement > ('.tile');
-
 let flipCounter : number = 0;
+let moves : number = 0;
 let colorsFlipped : string = '';
+let elemMoves : any = document.getElementById('moves');
+
 
 
 tiles.forEach(function (tile) {
-    tile.addEventListener('click', function () {
-        tile.classList.add('flip');
-        // add to flipcounter when user clicks tile
-        if (tile.classList.contains('flip')) {
-            flipCounter++
-        }
-          //check if there's a match
-          if (tile.classList.contains('flip')){
-            let matchingTiles = document
-                .querySelectorAll < HTMLElement > ('.tile.flip[style*="background: ' + tile.style.background +  ';"]');
-            if (matchingTiles.length > 1){       
-             setTimeout(() => {
-                gotPair();
-                allchecked();
-             }, 1000); 
+        tile.addEventListener('click', function () {
+            tile.classList.add('flip');
+            // add to flipcounter when user clicks tile and add score
+            if (tile.classList.contains('flip')) {
+                flipCounter++;
+                moves++;
+                elemMoves.innerHTML = `Moves: ${moves}`;
             }
-        }
-        // Clear tiles when there's not a pair
-        if (flipCounter >= 2) {
-            setTimeout(() => {
-            clearFlippedTiles();
-            flipCounter = 0;
-            }, 1000);
-        
+              //check if there's a match
+              if (tile.classList.contains('flip')){
+                let matchingTiles = document
+                    .querySelectorAll < HTMLElement > ('.tile.flip[style*="background: ' + tile.style.background +  ';"]');
+                if (matchingTiles.length > 1){       
+                 setTimeout(() => {
+                    gotPair();
+                    allchecked();
+                 }, 100); 
+                }
+            }
+            // Clear tiles when there's not a pair
+            if (flipCounter >= 2) {
+                setTimeout(() => {
+                clearFlippedTiles();
+                flipCounter = 0;
+                }, 500);
+              
+            }
           
-        }
-      
-    
-    });
+        
+        }); 
 });
 
 //clears the flipped tiles
@@ -98,19 +104,43 @@ let clearFlippedTiles = () => {
 let gotPair = () => {
 let flipped = document.querySelectorAll('.flip');
 flipped.forEach(tile => {
-tile.removeAttribute("style");
 tile.classList.remove('flip');  
+tile.removeAttribute("style");
 tile.innerHTML = '<i class="fas fa-check"></i>';
 tile.classList.add('check');
 tile.classList.remove('tile');  
 });
 }
 
+
 let allchecked = () => {
 let checked = document.querySelectorAll('.check');
+let score : any = document.getElementById('score');
+let scoreTotal : any = document.getElementById('scoreTotal');
+
 if (checked.length >= doubleColors.length) {
-    console.log('congrats!');
+scoreTotal.innerHTML = moves;
+    setTimeout(() => {
+    score.style.display = 'flex';
+    }, 1000);
 }
+}
+
+// Restart the game
+const btn = document.getElementById('btn');
+btn.addEventListener('click', playAgain)
+
+function playAgain(){
+    location.reload();
+}
+
+// start the game
+const btn2 = document.getElementById('btn2');
+btn2.addEventListener('click', startGame);
+
+function startGame(){
+const startGame : any = document.getElementById('startGame');
+startGame.style.display = 'none';
 }
 
 

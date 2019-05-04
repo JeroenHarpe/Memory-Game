@@ -8,10 +8,24 @@
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
     <title>Memory Game</title>
 </head>
 
 <body>
+    <div id="moves"></div>
+    <div id="startGame">
+        <h1>Test your memory!</h1>
+        <h3>Find 2 tiles with the same color. The game is finished when you flipped all the tiles.</h3>
+        <button id="btn2">Start Game</button>
+    </div>
+    <div id="score">
+        <h1>Congratulations!</h1>
+        <p>You completed the game in</p>
+        <h2 id=scoreTotal></h2>
+        <p>moves</p>
+        <button id="btn">Play again</button>
+    </div>
     <div id="board">
         <div class="tile nr1">
             <div class="front"></div>
